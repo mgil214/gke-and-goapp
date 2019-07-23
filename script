@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [[ "$1" == "ask-time" ]]; then
+    ARG="$1"
+else
+    echo "Sorry. you need to ask the server what time is it. Like that: 'ask-time'"
+    exit 1
+fi
+
+YOURNAME=$(echo $(curl --request POST 'http://localhost:8080/echo' --data '{ "echo": "Hello Docker" }') | awk -F ":" '{print $2}' | awk -F "\"" '{print $2}')
+
+GREETING=$(curl --request POST 'http://localhost:8080/echo' --data '{ "echo": "greeting" }' | awk -F ":" '{print $3}' | awk -F "\"" '{print $2}')
+
+TIMEHOURS=$(curl --request GET 'http://localhost:8080/now' --data '{ "datetime" }' | awk -F "\"" '{ print $10 }' | sed 's/^...........//' | sed 's/.$//' | awk -F ":" '{ print $1}')
+
+TIMEMINUTES=$(curl --request GET 'http://localhost:8080/now' --data '{ "datetime" }' | awk -F "\"" '{ print $10 }' | sed 's/^...........//' | sed 's/.$//' | awk -F ":" '{ print $2}')
+
+TIMESECONDS=$(curl --request GET 'http://localhost:8080/now' --data '{ "datetime" }' | awk -F "\"" '{ print $10 }' | sed 's/^...........//' | sed 's/.$//' | awk -F ":" '{ print $3}')
+
+if [[ "$TIMEHOURS" -ge 13 ]]; then
+    AUSTIMEHOURS=$(echo "$TIMEHOURS-14" | bc)
+else
+    AUSTIMEHOURS=$(echo "$TIMEHOURS+10" | bc)
+fi
+
+echo "
+$YOURNAME: $GREETING!
+Server: $GREETING $YOURNAME!
+$YOURNAME: Could you please tell me the time?
+Server: Yes I can! The time here is $TIMEHOURS:$TIMEMINUTES:$TIMESECONDS
+$YOURNAME: Oh wow! Here in Australia it is $AUSTIMEHOURS:$TIMEMINUTES:$TIMESECONDS"

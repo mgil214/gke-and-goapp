@@ -1,0 +1,11 @@
+---
+apiVersion: "extensions/v1beta1"
+kind: "Ingress"
+metadata:
+  name: "go-marat-ingress"
+  namespace: "default"
+spec:
+  backend:
+    serviceName: "go-marat"
+    servicePort: 8080
+

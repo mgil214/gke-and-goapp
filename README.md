@@ -22,23 +22,22 @@ gcloud auth configure-docker
 ```
 For more information about working with Google Cloud Container Registry see [the documentation](https://cloud.google.com/container-registry/docs/pushing-and-pulling).
 
-Tag the docker image with name `eu.gcr.io/marat-245008/service`.
+Tag the docker image with name.
 
 
 ### Connecting to the cluster
 
 Install the [Google Cloud SDK](https://cloud.google.com/sdk/) for your platform.
-Once that's done, configure it for project `marat-245008` and zone
-`europe-north1-b`.  You can find the SDK quick start guide
+Once that's done, configure it for project and zone.
+You can find the SDK quick start guide
 [here](https://cloud.google.com/sdk/docs/quickstarts).
 
 Get credentials for cluster:
 ```
-gcloud container clusters get-credentials marat --zone=europe-north1-b
+gcloud container clusters get-credentials marat --zone=ZONE_HERE
 ```
 To interact with the cluster you need
 [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).  Make sure you can connect to it:`kubectl cluster-info`
-Send an e-mail to **ops@delivered.im** if something doesn't work as expected in this stage.
 
 ### CLI client
 The service has two methods: `/echo` and `/now`. Take a look at the comments in the `service/main.go` to learn how they work.

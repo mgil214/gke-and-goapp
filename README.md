@@ -9,9 +9,6 @@ For this task you'll have to deploy a Go service to Kubernetes cluster, expose i
 
 Create a branch in this repository and commit all your work products there.
 
-- Google Cloud Project for this assignment: `marat-245008`
-- Google account to complete it with: `marat.r.g@gmail.com`
-
 ### Service
 
 You will find ready-made service code under `services` directory written in Go.
